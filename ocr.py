@@ -52,3 +52,4 @@ cv2.imshow("Output", gray)
 
 # wait until a key is pressed
 cv2.waitKey(0)
+cv2.destroyAllWindows()
