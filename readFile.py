@@ -15,7 +15,7 @@ def lineDetails(filename):
         if item == '':
             pass
 
-        if item.endswith('A') or item.endswith('E') or item.endswith('H') and item[-5] == '.':
+        if item.endswith('A') or item.endswith('E') or item.endswith('H') or item.endswith('R') and item[-5] == '.':
             itemTempList.append(item)
 
     for i in itemTempList:
@@ -57,9 +57,16 @@ def lineDetails(filename):
         itemName = item[0: realIndex]
         priceIndex = len(item) - realIndex
         price = item[realIndex + 1: len(item) - 2]
-        itemQuantityPair = (itemName, price)
+        itemQuantityPair = (itemName, float(price))
         finalList.append(itemQuantityPair)
 
-    print (finalList)        
-
-lineDetails('receiptText.txt')
+    print (finalList)
+    total = 0
+    z = 0
+    while z < len(finalList):
+        price = finalList[z][1]
+        total += price
+        z += 1
+    print (total)
+#lineDetails('receiptText.txt')
+lineDetails('receiptTextv2.txt')

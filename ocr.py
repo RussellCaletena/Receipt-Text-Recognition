@@ -19,7 +19,7 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 cv2.imshow("Image", gray)
 
-gray2 = cv2.resize(gray, None, fx=2, fy=2, interpolation = cv2.INTER_CUBIC)
+gray2 = cv2.resize(gray, None, fx=2.1, fy=2.1, interpolation = cv2.INTER_CUBIC)
 
 cv2.imshow("Image2", gray2)
 
@@ -82,7 +82,7 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 testText = 'test'
-doc = open("receiptText.txt", "w+", encoding="utf-8")
+doc = open("receiptTextv2.txt", "w+", encoding="utf-8")
 
 doc.write(text)
 
