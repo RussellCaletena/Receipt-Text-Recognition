@@ -1,5 +1,4 @@
 def lineDetails(filename):
-    itemCount = 0
     randomList = []
     itemTempList = []
     itemList = []
@@ -18,23 +17,18 @@ def lineDetails(filename):
 
         if item.endswith('A') or item.endswith('E') or item.endswith('H') and item[-5] == '.':
             itemTempList.append(item)
-            itemCount += 1
 
     for i in itemTempList:
         spaceCount = 0
 
         if i[0] == 'E': # Case 1, 2 spaces
             while spaceCount < 2:
-
                 if i[0] != ' ':
                     i = i[1:]
                 else:
                     spaceCount += 1
-
                     i = i[1:]
-
             itemList.append(i)
-
         elif i[0].isdigit(): # Case 2, 1 space
             while spaceCount < 1:
                 if i[0] != ' ':
@@ -42,18 +36,30 @@ def lineDetails(filename):
                 else:
                     spaceCount += 1
                     i = i[1:]
-
             itemList.append(i)
         else:
             pass
 
-    print (itemList)
+    finalList = []
 
-# char -> boolean
-def notLetters(x):
-    if ord(x) < 65 or ord(x) > 122:
-        return True
-    else:
-        return False
+    for item in itemList:
+        spaceCount2 = 0
+        tempChar = ''
+        dpIndex = item.find('.')
+        realIndex = dpIndex
+        while spaceCount2 < 2:
+            tempChar = item[realIndex]
+            if tempChar != ' ':
+                realIndex -= 1
+            else:
+                spaceCount2 += 1
+
+        itemName = item[0: realIndex]
+        priceIndex = len(item) - realIndex
+        price = item[realIndex + 1: len(item) - 2]
+        itemQuantityPair = (itemName, price)
+        finalList.append(itemQuantityPair)
+
+    print (finalList)        
 
 lineDetails('receiptText.txt')
