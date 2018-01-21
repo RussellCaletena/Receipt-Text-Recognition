@@ -19,6 +19,12 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 cv2.imshow("Image", gray)
 
+gray2 = cv2.resize(gray, None, fx=2, fy=2, interpolation = cv2.INTER_CUBIC)
+
+cv2.imshow("Image2", gray2)
+
+print ("Gray")
+
 # check to see if we should apply thresholding to preprocess the image
 if args["preprocess"] == "thresh":
     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -37,6 +43,27 @@ os.remove(filename)
 print (text)
 ### Next step: Output text to text document
 
+################################################################
+
+print ("Gray2")
+# check to see if we should apply thresholding to preprocess the image
+if args["preprocess"] == "thresh":
+    gray2 = cv2.threshold(gray2, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
+# make a check to see if median blurring should be done to remove noise
+elif args["preprocess"] == "blur":
+    gray2 = cv2.medianBlur(gray2, 3)
+
+# write the grayscale image to disk as a temp file so we can apply OCR to it
+filename = "{}.png".format(os.getpid())
+cv2.imwrite(filename, gray2)
+
+# load the image as a PIL/Pillow image, apply OCR, and then delete the temp file
+text = pytesseract.image_to_string(Image.open(filename))
+os.remove(filename)
+print (text)
+### Next step: Output text to text document
+
 # resize the images to fit on the screen
 ### Work on resizing to a specific size for all images
 newX, newY = int(image.shape[1]/8), int(image.shape[0]/8) #new size(w,h)
@@ -44,8 +71,8 @@ resizedImage = cv2.resize(image, (newX, newY) )
 resizedGray = cv2.resize(gray, (newX, newY) )
 
 # show the output images
-cv2.imshow("Image", image)
-cv2.imshow("Output", gray)
+#cv2.imshow("Image", image)
+#cv2.imshow("Output", gray)
 
 #cv2.imshow("Image", resizedImage)
 #cv2.imshow("Output", resizedGray)
@@ -53,3 +80,10 @@ cv2.imshow("Output", gray)
 # wait until a key is pressed
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+testText = 'test'
+doc = open("receiptText.txt", "w+", encoding="utf-8")
+
+doc.write(text)
+
+doc.close()

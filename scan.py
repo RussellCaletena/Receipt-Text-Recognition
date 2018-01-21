@@ -61,5 +61,6 @@ warped = (warped > T).astype("uint8") * 255
 # show the original and scanned images
 cv2.imshow("Original", imutils.resize(orig, height = 650))
 cv2.imshow("Scanned", imutils.resize(warped, height = 650))
+cv2.imwrite('ex8.png', warped)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
