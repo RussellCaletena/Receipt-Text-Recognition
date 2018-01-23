@@ -82,7 +82,7 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 testText = 'test'
-doc = open("receiptTextv2.txt", "w+", encoding="utf-8")
+doc = open("receiptTextv3.txt", "w+", encoding="utf-8")
 
 doc.write(text)
 
